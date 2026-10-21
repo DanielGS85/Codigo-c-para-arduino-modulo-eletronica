@@ -1,0 +1,57 @@
+
+ // LEDs dos carros
+#define VERMELHO 10
+#define AMARELO 9
+#define VERDE 8
+
+// LEDs dos pedestres
+#define VERMELHO_PEDESTRE 12
+#define VERDE_PEDESTRE 11
+
+// CONFIGURAÇÃO DOS PINOS
+void setup() {
+  pinMode(VERMELHO, OUTPUT);
+  pinMode(AMARELO, OUTPUT);
+  pinMode(VERDE, OUTPUT);
+  pinMode(VERMELHO_PEDESTRE, OUTPUT);
+  pinMode(VERDE_PEDESTRE, OUTPUT);
+}
+
+// CONTROLE DOS LEDs DOS PEDESTRES
+void controlarPedestres(bool carrosParados) {
+  if (carrosParados) {
+    digitalWrite(VERMELHO_PEDESTRE, LOW);
+    digitalWrite(VERDE_PEDESTRE, HIGH);
+  } else {
+    digitalWrite(VERMELHO_PEDESTRE, HIGH);
+    digitalWrite(VERDE_PEDESTRE, LOW);
+  }
+}
+
+// LOOP DO SEMÁFORO
+void loop() {
+  // ETAPA 1: CARROS PARAM
+  digitalWrite(VERMELHO, HIGH);
+  digitalWrite(AMARELO, LOW);
+  digitalWrite(VERDE, LOW);
+
+  controlarPedestres(true);
+  delay(2000);
+
+  // ETAPA 2: CARROS PASSAM
+  digitalWrite(VERMELHO, LOW);
+  digitalWrite(AMARELO, LOW);
+  digitalWrite(VERDE, HIGH);
+
+  controlarPedestres(false);
+  delay(2000);
+
+  // ETAPA 3: ATENÇÃO
+  digitalWrite(VERMELHO, LOW);
+  digitalWrite(AMARELO, HIGH);
+  digitalWrite(VERDE, LOW);
+
+  controlarPedestres(false);
+  delay(2000);
+}
+
